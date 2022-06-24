@@ -120,18 +120,6 @@ Output:
 }
 ```
 
-## for end point --> /getAPPInfo
-
-#### For attribute mapping please refer config/mdm-config.json
-
-Input Payload:
-```{
-    "arcId": "ARCTESTGETQUOTE",
-    "distributorId": 9001,
-    "productId": 8141,
-    "api": "getQUOTE"
-}
-```
 
 
 
