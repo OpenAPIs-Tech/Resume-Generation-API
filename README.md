@@ -134,33 +134,6 @@ Input Payload:
 ```
 
 
-Output:
-```
-{
-    "name": {
-        "firstName": "EMad",
-        "middleName": "Raza",
-        "lastName": "Khan"
-    },
-    "address": {
-        "AddressLine1": "Old Colony",
-        "AddressLine2": "5th Floor",
-        "Zipcode": "10007",
-        "city": "Random City",
-        "state": "NY"
-    },
-    "gender": "M",
-    "dob": "12/26/1996",
-    "age": "51",
-    "term": "10",
-    "zip": "28403",
-    "state": "NC",
-    "height": "5.02",
-    "weight": "130"
-}
-```
-
-
 
 
 
