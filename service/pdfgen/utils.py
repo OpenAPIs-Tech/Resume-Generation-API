@@ -231,8 +231,6 @@ def renderProjects(template,projects,index,some=None):
             }
             ]
         }
-    # a = genpdf1.template
-    # a['rows'].append(data1)
     template['rows'].append(data1)
     data2=    {
             "height": 2,
@@ -250,52 +248,10 @@ def renderProjects(template,projects,index,some=None):
             }
             ]
         }
-    # genpdf1.template['rows'].append(data2)
-    # a['rows'].append(data2)
     template['rows'].append(data2)
-    
-    # print("hiiii",genpdf1.varr)
-    # if genpdf1.varr==1:
-
-    #     dataspace = {
-    #         "height": 2,
-    #         "styles": {
-    #         "font": "Times",
-    #         "fontSize": 8,
-    #         "leftPadding": 10
-    #         },
-    #         "columns": [
-    #     {
-    #         "format": "text",
-    #         "data": "",
-    #         "width": 100
-    #         }
-    #     ]
-    #     }
-    #     template['rows'].append(dataspace)
     return
 
 def renderHobbies(template,hobbies,index,some=None):
-    # print("hereeeeeeeee",some)
-    # if some=="abc":
-    #     dataspace = {
-    #         "height": 2,
-    #         "styles": {
-    #         "font": "Times",
-    #         "fontSize": 8,
-    #         "leftPadding": 10
-    #         },
-    #         "columns": [
-    #     {
-    #         "format": "text",
-    #         "data": "",
-    #         "width": 100
-    #         }
-    #     ]
-    #     }
-    #     template['rows'].append(dataspace)
-
-
     data=    {
             "height": 2,
             "styles": {

@@ -26,9 +26,7 @@ pagebreak = False
 pdfFonts = None
 
 
-
-
-def generatePdff(body):
+def getTemplate(body):
     fullName = body.get("fullName","")
     addressAndPhone = body.get("addressAndPhone","") #["address","phone"]
     educationalDetails = body.get("educationalDetail","") # [ {"bachelors":{"collegename":"random","specialisation":"random","grade":"randval"}} ]
@@ -40,68 +38,79 @@ def generatePdff(body):
     extraCurricular = body.get("extraCurricular","")
     achievements = body.get("achievements","")
 
+
+
     template = {}
     template['rows'] = []
-    template['rows'].append(utils.renderFirstName(fullName))
-    template['rows'].append(utils.renderAddressAndPhone(addressAndPhone))
-    template['rows'].append(utils.renderSpace())
+    
+
+    if fullName:
+        template['rows'].append(utils.renderFirstName(fullName))
+        template['rows'].append(utils.renderAddressAndPhone(addressAndPhone))
+        template['rows'].append(utils.renderSpace())
+
+    if educationalDetails:
+        template['rows'].append(utils.renderHeading("Education"))
+        for i in range(len(educationalDetails)):
+            utils.renderEducationalDetails(template,educationalDetails,i)
+        template['rows'].append(utils.renderSpace())
+
+    if workExperience:
+        template['rows'].append(utils.renderHeading("Experience"))
+        for i in range(len(workExperience)):
+            utils.renderWorkExperience(template,workExperience,i)
+            # if i<len(workExperience)-1:
+            #     template['rows'].append(utils.renderSpace())
+            
+        template['rows'].append(utils.renderSpace())
+
+    if skills:
+        template['rows'].append(utils.renderHeading("Skills"))
+        for key,val in skills[0].items():
+            template['rows'].append(utils.renderSkills(skills,key,val))
+        template['rows'].append(utils.renderSpace())
+
+    if projects:
+        template['rows'].append(utils.renderHeading("Projects/Open Source"))
+        for i in range(len(projects)):
+            if i==len(projects)-1:
+
+                utils.renderProjects(template,projects,i,some="abc")
+            else:
+                utils.renderProjects(template,projects,i)
+        template['rows'].append(utils.renderSpace())
+
+    if certificates:
+        template['rows'].append(utils.renderHeading("Certificates"))
+        for i in range(len(certificates)):
+
+            utils.renderHobbies(template,certificates,i,some="abc")
+        template['rows'].append(utils.renderSpace())
+
+    if hobbies:
+        template['rows'].append(utils.renderHeading("Hobbies"))
+        for i in range(len(hobbies)):
+            utils.renderHobbies(template,hobbies,i,"abc")
+        template['rows'].append(utils.renderSpace())
+
+    if extraCurricular:
+        template['rows'].append(utils.renderHeading("Extra Curricular"))
+        for i in range(len(extraCurricular)):
+            utils.renderHobbies(template,extraCurricular,i)
+        template['rows'].append(utils.renderSpace())
+
+    if achievements:
+        template['rows'].append(utils.renderHeading("Achivements"))
+        for i in range(len(achievements)):
+            utils.renderHobbies(template,achievements,i)
+        template['rows'].append(utils.renderSpace())
+
+    return template
 
 
-    template['rows'].append(utils.renderHeading("Education"))
-    for i in range(len(educationalDetails)):
-        utils.renderEducationalDetails(template,educationalDetails,i)
-    template['rows'].append(utils.renderSpace())
 
-
-    template['rows'].append(utils.renderHeading("Experience"))
-    for i in range(len(workExperience)):
-        utils.renderWorkExperience(template,workExperience,i)
-        # if i<len(workExperience)-1:
-        #     template['rows'].append(utils.renderSpace())
-        
-    template['rows'].append(utils.renderSpace())
-
-
-    template['rows'].append(utils.renderHeading("Skills"))
-    for key,val in skills[0].items():
-        template['rows'].append(utils.renderSkills(skills,key,val))
-    template['rows'].append(utils.renderSpace())
-
-
-    template['rows'].append(utils.renderHeading("Projects/Open Source"))
-    for i in range(len(projects)):
-        if i==len(projects)-1:
-
-            utils.renderProjects(template,projects,i,some="abc")
-        else:
-            utils.renderProjects(template,projects,i)
-    template['rows'].append(utils.renderSpace())
-
-
-    template['rows'].append(utils.renderHeading("Certificates"))
-    for i in range(len(certificates)):
-
-        utils.renderHobbies(template,certificates,i,some="abc")
-    template['rows'].append(utils.renderSpace())
-
-
-    template['rows'].append(utils.renderHeading("Hobbies"))
-    for i in range(len(hobbies)):
-        utils.renderHobbies(template,hobbies,i,"abc")
-    template['rows'].append(utils.renderSpace())
-
-
-    template['rows'].append(utils.renderHeading("Extra Curricular"))
-    for i in range(len(extraCurricular)):
-        utils.renderHobbies(template,extraCurricular,i)
-    template['rows'].append(utils.renderSpace())
-
-
-    template['rows'].append(utils.renderHeading("Achivements"))
-    for i in range(len(achievements)):
-        utils.renderHobbies(template,achievements,i)
-    template['rows'].append(utils.renderSpace())
-
+def generatePdff(body):
+    template = getTemplate(body)
     global pagebreak
     global varr
 
@@ -123,13 +132,11 @@ def generatePdff(body):
 
 
     try:
-        input = request.get_json()
-        page = input["page"]
+        fullName = body.get('fullName')
         fileName = fullName + ".pdf"
         pdf = canvas.Canvas(fileName, pagesize=A4)
         pdfWidth, pdfHeight = A4
 
-        print(f"page: {page}")
         print(f"pdfWidth:{pdfWidth}")
         print(f"pdfHeight:{pdfHeight}")
 
@@ -201,10 +208,12 @@ def generatePdff(body):
 
             index += 1
 
-        a = pdf.save()
+        pdf.save()
+        # data=""
         print(type(pdf))
         with open(f"{fullName}.pdf", "rb") as pdf_file:
             encoded_string = base64.b64encode(pdf_file.read())
+            data =str(encoded_string, 'utf-8')
         
         os.remove(f"{fullName}.pdf")
 
@@ -212,11 +221,12 @@ def generatePdff(body):
         statusCode = 200
 
     except:
+        data=""
         print("Error Occured ")
         traceback.print_exc()
         statusCode = 205
     
-    data =str(encoded_string, 'utf-8')
+    
 
     return jsonify(data=data,statusCode=statusCode)
 
