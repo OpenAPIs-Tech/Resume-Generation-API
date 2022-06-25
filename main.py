@@ -8,7 +8,9 @@ from service.pdfgen import genpdf,genpdf1
 app = Flask(__name__)
 
 
-
+@app.route('/')
+def hello():
+    return "hello"
 
 @app.route('/generatePdf',methods=['POST'])
 @cross_origin()
