@@ -18,7 +18,6 @@ from reportlab.lib.units import mm
 from service.pdfgen import utils
 import base64
 
-varr = 0
 bottomPaddingRemaining = 0
 listOfRowsStyle = []
 remainingRows = 0
@@ -28,11 +27,11 @@ pdfFonts = None
 
 def getTemplate(body):
     fullName = body.get("fullName","")
-    addressAndPhone = body.get("addressAndPhone","") #["address","phone"]
-    educationalDetails = body.get("educationalDetail","") # [ {"bachelors":{"collegename":"random","specialisation":"random","grade":"randval"}} ]
-    workExperience = body.get("workExperience","")     # [{"companyName":{"type":"fulltime/internship","duration":"random","Techstacks":["LIne1","Line2"]}}]
-    projects = body.get("projects","") # {"ProjectName":{"briefInfo":"rand string","duration":"random","Techstacks":["LIne1","Line2"],"githuburl":"url"}}
-    skills = body.get("skills","") #["python",etc]
+    addressAndPhone = body.get("addressAndPhone","") 
+    educationalDetails = body.get("educationalDetail","") 
+    workExperience = body.get("workExperience","")
+    projects = body.get("projects","")
+    skills = body.get("skills","")
     hobbies = body.get("hobbies","")
     certificates = body.get("certificates","")
     extraCurricular = body.get("extraCurricular","")
@@ -41,8 +40,7 @@ def getTemplate(body):
 
 
     template = {}
-    template['rows'] = []
-    
+    template['rows'] = []        
 
     if fullName:
         template['rows'].append(utils.renderFirstName(fullName))
@@ -100,7 +98,7 @@ def getTemplate(body):
         template['rows'].append(utils.renderSpace())
 
     if achievements:
-        template['rows'].append(utils.renderHeading("Achivements"))
+        template['rows'].append(utils.renderHeading("Achievements"))
         for i in range(len(achievements)):
             utils.renderHobbies(template,achievements,i)
         template['rows'].append(utils.renderSpace())
@@ -112,7 +110,23 @@ def getTemplate(body):
 def generatePdff(body):
     template = getTemplate(body)
     global pagebreak
-    global varr
+
+    if not template['rows']:
+        fileName = "emptypdf" + ".pdf"
+        pdf = canvas.Canvas(fileName, pagesize=A4)
+        pdfWidth, pdfHeight = A4
+        pdf.showPage()
+        pdf.save()
+        with open("emptypdf.pdf", "rb") as pdf_file:
+            encoded_string = base64.b64encode(pdf_file.read())
+            data =str(encoded_string, 'utf-8')
+        
+        os.remove("emptypdf.pdf")
+
+        
+        statusCode = 200
+        return jsonify(statusCode=statusCode,data=data)
+
 
     topMarginData = {
         "height": 2,
@@ -178,7 +192,6 @@ def generatePdff(body):
                 # print(f"templateRows After {index}:=>{templateRows}")
                 data = generateRowsTable(pdfWidthList[0], heightList, templateRows, pdfHeight, pdf)
             else:
-                # varr =1
                 temp-=1
                 newRows=templateRows[temp:]
                 newHeightList=heightList[temp:]
