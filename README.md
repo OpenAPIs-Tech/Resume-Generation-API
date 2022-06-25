@@ -22,7 +22,7 @@ pip install -r requirements.txt
 python main.py
 ```
 
-## for end point --> /generatePdf
+## for end point of POST Request --> https://openapis.herokuapp.com/generatePdf
 #### It returns pdf data in base64 string which can be used in frontend to render it.
 
 Input Payload:
