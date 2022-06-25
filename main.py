@@ -8,7 +8,7 @@ from service.pdfgen import genpdf,genpdf1
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/',methods=['POST'])
 def hello():
     return "hello"
 
