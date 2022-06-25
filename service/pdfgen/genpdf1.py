@@ -42,7 +42,7 @@ def getTemplate(body):
     template = {}
     template['rows'] = []        
 
-    if fullName:
+    if fullName and addressAndPhone:
         template['rows'].append(utils.renderFirstName(fullName))
         template['rows'].append(utils.renderAddressAndPhone(addressAndPhone))
         template['rows'].append(utils.renderSpace())
@@ -146,7 +146,7 @@ def generatePdff(body):
 
 
     try:
-        fullName = body.get('fullName')
+        fullName = body.get('fullName',"a")
         fileName = fullName + ".pdf"
         pdf = canvas.Canvas(fileName, pagesize=A4)
         pdfWidth, pdfHeight = A4
