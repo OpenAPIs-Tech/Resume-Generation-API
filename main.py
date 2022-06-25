@@ -1,6 +1,6 @@
 import json
 from flask import Flask, request,jsonify,Response
-from flask_cors import CORS, cross_origin
+# from flask_cors import CORS, cross_origin
 
 from service.pdfgen import genpdf,genpdf1
 
@@ -13,7 +13,6 @@ def hello():
     return "hello"
 
 @app.route('/generatePdf',methods=['POST'])
-@cross_origin()
 def mainpdfmaker():
     body = request.get_json()
     # getPdf = genpdf.generatePdf(body)
