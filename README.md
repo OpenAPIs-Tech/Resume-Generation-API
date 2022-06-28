@@ -28,7 +28,7 @@ python main.py
 Input Payload:
 ```
 {
-    "fullName": "Emadddur",
+    "fullName": "Emaddd Razaa khan",
     "addressAndPhone": [
         "emadk3@gmail.com",
         "Raza Manzil, Ward Number 7, Bihar-844506",
@@ -86,7 +86,7 @@ Input Payload:
         {
            "projectName": "CRUD Operations backend",
            "techstacks": "Java, Spring boot",
-           "briefInfo": "Different end points for CRUD operations"
+           "briefInfo": "Different end points for CRUD operationss"
         }
     ],
     "skills": [
@@ -98,16 +98,33 @@ Input Payload:
         }
     ],
     "certificates": [
-        "Udemy, Coursera"
+        {
+            "certificate":"C++ from udemy"
+        },
+        {
+            "certificate":"Java from udemy"
+        }
     ],
     "hobbies": [
-        "Music, Badminton"
+        {
+            "hobby":"Music"
+        },
+        {
+            "hobby":"Badminton"
+        }
     ],
     "extraCurricular": [
-        "Sports ,Volunteering"
+        {
+            "activity":"Sports"
+        },
+        {
+            "activity":"Volunteering"
+        }
     ],
     "achievements": [
-        "Winner of Mr.Fresher event of college, Awarded merit scholarship by Government of India"
+        {
+            "achievement":"Winner of Mr. Fresher event"
+        }
     ]
 }
 ```
