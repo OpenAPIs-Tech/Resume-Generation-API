@@ -15,6 +15,7 @@ def hello():
 @app.route('/generatePdf',methods=['POST'])
 @cross_origin()
 def mainpdfmaker():
+    print("hi")
     body = request.get_json()
     getPdf = genpdf1.generatePdff(body)
     return getPdf

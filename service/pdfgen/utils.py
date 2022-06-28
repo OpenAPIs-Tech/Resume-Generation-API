@@ -251,7 +251,9 @@ def renderProjects(template,projects,index,some=None):
     template['rows'].append(data2)
     return
 
-def renderHobbies(template,hobbies,index,some=None):
+def renderHobbies(template,key,argname,index,some=None):
+    mapp = {"hobbies":"hobby","extraCurricular":"activity","achievements":"achievement","certificates":"certificate"}
+    print("hiiii")
     data=    {
             "height": 2,
             "styles": {
@@ -264,7 +266,7 @@ def renderHobbies(template,hobbies,index,some=None):
             "columns": [
             {
                 "format": "text",
-                "data": f"{hobbies[index]}",
+                "data": f"{key[index].get(mapp[argname])}",
                 "width": 100
             }
             ]

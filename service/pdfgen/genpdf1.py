@@ -79,28 +79,32 @@ def getTemplate(body):
         template['rows'].append(utils.renderSpace())
 
     if certificates:
+        keyval="certificates"
         template['rows'].append(utils.renderHeading("Certificates"))
         for i in range(len(certificates)):
 
-            utils.renderHobbies(template,certificates,i,some="abc")
+            utils.renderHobbies(template,certificates,keyval,i,some="abc")
         template['rows'].append(utils.renderSpace())
 
     if hobbies:
+        keyval="hobbies"
         template['rows'].append(utils.renderHeading("Hobbies"))
         for i in range(len(hobbies)):
-            utils.renderHobbies(template,hobbies,i,"abc")
+            utils.renderHobbies(template,hobbies,keyval,i,"abc")
         template['rows'].append(utils.renderSpace())
 
     if extraCurricular:
+        keyval="extraCurricular"
         template['rows'].append(utils.renderHeading("Extra Curricular"))
         for i in range(len(extraCurricular)):
-            utils.renderHobbies(template,extraCurricular,i)
+            utils.renderHobbies(template,extraCurricular,keyval,i)
         template['rows'].append(utils.renderSpace())
 
     if achievements:
+        keyval = "achievements"
         template['rows'].append(utils.renderHeading("Achievements"))
         for i in range(len(achievements)):
-            utils.renderHobbies(template,achievements,i)
+            utils.renderHobbies(template,achievements,keyval,i)
         template['rows'].append(utils.renderSpace())
 
     return template
